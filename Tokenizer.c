@@ -42,22 +42,30 @@ Lex* toToken(Lex** slot, char* line, int* count){
         char temp[MAX_LINE_SIZE];
         int len = 0;
         temp[len++] = line[i];
-        if (isalpha((unsigned char)line[i++])) {
-            while(((isalpha((unsigned char)line[i])) || (isdigit((unsigned char)line[i+1])))){ //while a character or letter string collect
+        temp[len]= '\0';
+        if (isalpha((unsigned char)line[i])) {
+            i++;
+            while(((isalpha((unsigned char)line[i])) || (isdigit((unsigned char)line[i])))){ //while a character or letter string collect
             temp[len++]= line[i++];
+            temp[len]= '\0';
             }
         }
-        else if (isdigit((unsigned char)line[i++])) {
+        else if (isdigit((unsigned char)line[i+])) {
+            i++;
             while(((isdigit((unsigned char)line[i])))){ //while string of digits collect
             temp[len++]= line[i++];
+            temp[len]= '\0';
             }
         }
-        else if (isspace((unsigned char)line[i++])) { // if space loop
+        else if (isspace((unsigned char)line[i+])) { // if space loop
+            i++;
             continue;
         }
         else {
-            while(!((isspace((unsigned char)line[i++])) || (isalpha((unsigned char)line[i+1])) || (isdigit((unsigned char)line[i+1])))){
+            while(!((isspace((unsigned char)line[i+])) || (isalpha((unsigned char)line[i+1])) || (isdigit((unsigned char)line[i+1])))){
+                i++;
                 temp[len++]= line[i];
+                temp[len]= '\0';
             }
         }
 
