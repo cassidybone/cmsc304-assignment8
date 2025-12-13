@@ -1,18 +1,12 @@
-#ifndef TOKENIZER_C
-#define TOKENIZER_C
 
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-
-#include "Common.h"
+#include "Tokenizer.h"
 
 char* printToken(Token* aToken);
 
+// to identify and return token type from lexeme
 TokenType identify(char* lexeme){
     
-    lexeme = rstrip(lexeme);
+    rstrip(lexeme);
 
     // Check if reserved words
     if (strcmp(lexeme, "while") == 0)  return WHILE_KEYWORD;
@@ -32,7 +26,7 @@ TokenType identify(char* lexeme){
         strcmp(lexeme, "%") == 0) return BINOP;
 
     // Check if number
-    if (!isdigit((unsigned char)lexeme[0]))  return NUMBER;
+    if (isdigit((unsigned char)lexeme[0]))  return NUMBER;
 
     // Otherwise IDENTIFIER 
     return IDENTIFIER;
@@ -40,11 +34,12 @@ TokenType identify(char* lexeme){
 
 }
 
-Lex* toToken(Char* line, int* count){
+// to split lines into lexemes
+Lex* toToken(char* line, int* count){
     
 
     int i = 0;
-    Lex[] slot = malloc(sizeof(Lex)*5);
+    Lex slot = malloc(sizeof(Lex)*5);
     while (line[i] != '\0') { // check each character at a time until null terminator
         char temp[MAX_LINE_SIZE];
         temp[i] = line[i];
@@ -84,7 +79,7 @@ Lex* toToken(Char* line, int* count){
     }
 
     return slot;
-    
+
 }
 
 
@@ -101,9 +96,11 @@ int main(int argc, char *argv[]){
     char line[MAX_LINE_SIZE];
     int count = 0; //count number of tokens
 
+    Lex* slot;
+
     //read each line and process into tokens
     while (fgets(line, sizeof(line), in) != NULL) {
-        toToken(line, &count);
+        slot = toToken(line, &count);
     }
 
 
@@ -122,6 +119,3 @@ int main(int argc, char *argv[]){
 
 
 }
-
-
-#endif
