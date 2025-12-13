@@ -108,8 +108,8 @@ int main(int argc, char *argv[]){
 
     // print out to file
     for (int i = 0; i< count; i++){
-        fprintf(out, "%s\n", kenized[i].type + " "+ kenized[i].lexeme);
-        i++;
+        fprintf(out, "%s\n", toString(kenized[i].type) + " "+ kenized[i].lexeme);
+
     }
 
     //cloe files

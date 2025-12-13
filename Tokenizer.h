@@ -9,7 +9,9 @@
 #include "Common.h"
 
 void printToken(Token aToken);
+TokenType identify(char* lexeme);
 void toToken(File* aFile);
+int main(int argc, char *argv[]);
 
 
 #endif
