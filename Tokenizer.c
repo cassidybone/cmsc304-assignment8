@@ -10,7 +10,36 @@
 
 char* printToken(Token* aToken);
 
-Token* toToken(FILE* inputFile);
+
+Lex* toToken(Char* line, int* count){
+    
+    int i = 0;
+    Lex[] slot = malloc(sizeof(Lex)*5);
+    while (line[i] != '\0') { // check each character at a time until null terminator
+        char temp[MAX_LINE_SIZE] = line[i];
+        if (isalpha((unsigned char)line[i])) {
+            while(((isalpha((unsigned char)line[i+1])) || (isdigit((unsigned char)line[i+1])))){ //while a character or letter string collect
+            i++;
+            temp[i]= line[i];
+            }
+        }
+        else if (isdigit((unsigned char)c)) {
+            // start or continue NUMBER
+        }
+        else if (isspace((unsigned char)c)) {
+            // delimiter
+        }
+        else {
+            // symbol
+        }
+
+        slot[count] = struct Lex
+        *count++; //increment number of tokens found
+
+
+    }
+}
+
 
 int main(int argc, char *argv[]){
 
@@ -20,6 +49,16 @@ int main(int argc, char *argv[]){
 
     FILE* in = fopen(argv[1], "r");     //open input file to read
     FILE* out = fopen(argv[2], "w");    //open output file to write
+
+
+    char line[MAX_LINE_SIZE];
+    int count = 0; //count number of tokens
+
+    //read each line and process into tokens
+    while (fgets(line, sizeof(line), in) != NULL) {
+        toToken(line, &count);
+    }
+
 
     Token* kenized = toToken(in);
     int i = 0;
