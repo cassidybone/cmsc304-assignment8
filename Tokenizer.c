@@ -1,7 +1,6 @@
 
 #include "Tokenizer.h"
 
-char* printToken(Token* aToken);
 
 // to identify and return token type from lexeme
 TokenType identify(char* lexeme){
@@ -39,7 +38,7 @@ Lex* toToken(char* line, int* count){
     
 
     int i = 0;
-    Lex slot = malloc(sizeof(Lex)*5);
+    Lex* slot = malloc(sizeof(Lex)*5); // to store new Lex structs
     while (line[i] != '\0') { // check each character at a time until null terminator
         char temp[MAX_LINE_SIZE];
         temp[i] = line[i];
@@ -66,12 +65,13 @@ Lex* toToken(char* line, int* count){
             }
         }
 
+        // Build new struct with founf lexeme
         Lex newLex;
         strcpy(newLex.lexeme, temp);
-        newLex.type = identify(temp);
-        slot[*count] = newLex;
-        (*count)++;                                                 //increment number of tokens found
-        if((*count)%5 == 0){
+        newLex.type = identify(temp);      // run to identify TokenType
+        slot[*count] = newLex;             // add to array
+        (*count)++;                        // increment number of tokens found
+        if((*count)%5 == 0){               // increase array size if needed
             slot = realloc(slot, sizeof(Lex)*(*count)+5);
         }
 
@@ -96,22 +96,20 @@ int main(int argc, char *argv[]){
     char line[MAX_LINE_SIZE];
     int count = 0; //count number of tokens
 
-    Lex* slot;
+    Lex* kenized;
 
     //read each line and process into tokens
     while (fgets(line, sizeof(line), in) != NULL) {
-        slot = toToken(line, &count);
+        kenized = toToken(line, &count);
     }
 
-
-    Token* kenized = toToken(in);
-    int i = 0;
-
-    while (kenized[i] != NULL){
-        fprintf(out, "%s\n", printToken(kenized[i]));
+    // print out to file
+    for (int i = 0; i< count; i++){
+        fprintf(out, "%s\n", kenized[i].type + " "+ kenized[i].lexeme);
         i++;
     }
 
+    //cloe files
     fclose(in);
     fclose(out);
 
