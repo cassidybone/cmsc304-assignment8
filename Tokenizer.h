@@ -5,13 +5,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 
 #include "Common.h"
 
-void printToken(Token aToken);
+const char *toString(TokenType t);
 TokenType identify(char* lexeme);
-void toToken(File* aFile);
-int main(int argc, char *argv[]);
+void shorten(char *aString);
 
+Lex* toToken(Lex** slot, char* line, int* count);
 
 #endif

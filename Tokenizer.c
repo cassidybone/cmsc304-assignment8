@@ -1,11 +1,33 @@
-
 #include "Tokenizer.h"
 
+
+void shorten(char *aString);
+
+
+// method to print token type
+const char *toString(TokenType t) {
+    switch (t) {
+        case LEFT_PARENTHESIS:  return "LEFT_PARENTHESIS";
+        case RIGHT_PARENTHESIS: return "RIGHT_PARENTHESIS";
+        case LEFT_BRACKET:      return "LEFT_BRACKET";
+        case RIGHT_BRACKET:     return "RIGHT_BRACKET";
+        case WHILE_KEYWORD:     return "WHILE_KEYWORD";
+        case RETURN_KEYWORD:    return "RETURN_KEYWORD";
+        case EQUAL:             return "EQUAL";
+        case COMMA:             return "COMMA";
+        case EOL:               return "EOL";
+        case VARTYPE:           return "VARTYPE";
+        case IDENTIFIER:        return "IDENTIFIER";
+        case BINOP:             return "BINOP";
+        case NUMBER:            return "NUMBER";
+        default:                return "UNKNOWN";
+    }
+}
 
 // to identify and return token type from lexeme
 TokenType identify(char* lexeme){
     
-    rstrip(lexeme);
+    shorten(lexeme);
 
     // Check if reserved words
     if (strcmp(lexeme, "while") == 0)  return WHILE_KEYWORD;
@@ -30,7 +52,14 @@ TokenType identify(char* lexeme){
     // Otherwise IDENTIFIER 
     return IDENTIFIER;
 
+}
 
+// to get rid of extra space to left
+void shorten(char *aString) {
+    int len = (int)strlen(aString);
+    while (len > 0 && isspace((unsigned char)aString[len - 1])) {
+        aString[--len] = '\0';
+    }
 }
 
 // to split lines into lexemes
@@ -50,22 +79,24 @@ Lex* toToken(Lex** slot, char* line, int* count){
             temp[len]= '\0';
             }
         }
-        else if (isdigit((unsigned char)line[i+])) {
+        else if (isdigit((unsigned char)line[i])) {
             i++;
             while(((isdigit((unsigned char)line[i])))){ //while string of digits collect
             temp[len++]= line[i++];
             temp[len]= '\0';
             }
         }
-        else if (isspace((unsigned char)line[i+])) { // if space loop
+        else if (isspace((unsigned char)line[i])) { // if space loop
             i++;
             continue;
         }
         else {
-            while(!((isspace((unsigned char)line[i+])) || (isalpha((unsigned char)line[i+1])) || (isdigit((unsigned char)line[i+1])))){
-                i++;
+            i++;
+            while(!((isspace((unsigned char)line[i])) || (isalpha((unsigned char)line[i])) || (isdigit((unsigned char)line[i])))){
+
                 temp[len++]= line[i];
                 temp[len]= '\0';
+                i++;
             }
         }
 
@@ -73,10 +104,10 @@ Lex* toToken(Lex** slot, char* line, int* count){
         Lex newLex;
         strcpy(newLex.lexeme, temp);
         newLex.type = identify(temp);      // run to identify TokenType
-        *slot[*count] = newLex;             // add to array
+        (*slot)[*count] = newLex;             // add to array
         (*count)++;                        // increment number of tokens found
         if((*count)%5 == 0){               // increase array size if needed
-            slot = realloc(*slot, sizeof(Lex)*((*count)+5));
+            *slot = realloc(*slot, sizeof(Lex)*((*count)+5));
         }
 
 
@@ -104,14 +135,18 @@ int main(int argc, char *argv[]){
 
     //read each line and process into tokens
     while (fgets(line, sizeof(line), in) != NULL) {
+        shorten(line);
         toToken(&kenized, line, &count);
     }
 
     // print out to file
     for (int i = 0; i< count; i++){
-        fprintf(out, "%s\n", toString(kenized[i].type) + " "+ kenized[i].lexeme);
+        fprintf(out, "%s %s\n", toString(kenized[i].type), kenized[i].lexeme);
 
     }
+
+    
+    free(kenized); //no garbage around here
 
     //cloe files
     fclose(in);
@@ -121,3 +156,4 @@ int main(int argc, char *argv[]){
 
 
 }
+
