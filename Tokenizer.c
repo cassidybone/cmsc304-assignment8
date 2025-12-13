@@ -40,31 +40,24 @@ Lex* toToken(Lex** slot, char* line, int* count){
     int i = 0; //index in line
     while (line[i] != '\0') { // check each character at a time until null terminator
         char temp[MAX_LINE_SIZE];
-        int len = 1;
-        temp[len] = line[i];
-        if (isalpha((unsigned char)line[i])) {
-            while(((isalpha((unsigned char)line[i+1])) || (isdigit((unsigned char)line[i+1])))){ //while a character or letter string collect
-            i++;
-            len++;
-            temp[len]= line[i];
+        int len = 0;
+        temp[len++] = line[i];
+        if (isalpha((unsigned char)line[i++])) {
+            while(((isalpha((unsigned char)line[i])) || (isdigit((unsigned char)line[i+1])))){ //while a character or letter string collect
+            temp[len++]= line[i++];
             }
         }
-        else if (isdigit((unsigned char)line[i])) {
-            while(((isdigit((unsigned char)line[i+1])))){ //while string of digits collect
-            i++;
-            len++;
-            temp[len]= line[i];
+        else if (isdigit((unsigned char)line[i++])) {
+            while(((isdigit((unsigned char)line[i])))){ //while string of digits collect
+            temp[len++]= line[i++];
             }
         }
-        else if (isspace((unsigned char)line[i])) { // if space loop
-            i++;
+        else if (isspace((unsigned char)line[i++])) { // if space loop
             continue;
         }
         else {
-            while(!((isspace((unsigned char)line[i])) || (isalpha((unsigned char)line[i+1])) || (isdigit((unsigned char)line[i+1])))){
-                i++;
-                len++;
-                temp[len]= line[i];
+            while(!((isspace((unsigned char)line[i++])) || (isalpha((unsigned char)line[i+1])) || (isdigit((unsigned char)line[i+1])))){
+                temp[len++]= line[i];
             }
         }
 
