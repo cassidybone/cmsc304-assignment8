@@ -34,24 +34,26 @@ TokenType identify(char* lexeme){
 }
 
 // to split lines into lexemes
-Lex* toToken(char* line, int* count){
+Lex* toToken(Lex** slot, char* line, int* count){
     
 
-    int i = 0;
-    Lex* slot = malloc(sizeof(Lex)*5); // to store new Lex structs
+    int i = 0; //index in line
     while (line[i] != '\0') { // check each character at a time until null terminator
         char temp[MAX_LINE_SIZE];
-        temp[i] = line[i];
+        int len = 1;
+        temp[len] = line[i];
         if (isalpha((unsigned char)line[i])) {
             while(((isalpha((unsigned char)line[i+1])) || (isdigit((unsigned char)line[i+1])))){ //while a character or letter string collect
             i++;
-            temp[i]= line[i];
+            len++;
+            temp[len]= line[i];
             }
         }
         else if (isdigit((unsigned char)line[i])) {
             while(((isdigit((unsigned char)line[i+1])))){ //while string of digits collect
             i++;
-            temp[i]= line[i];
+            len++;
+            temp[len]= line[i];
             }
         }
         else if (isspace((unsigned char)line[i])) { // if space loop
@@ -61,7 +63,8 @@ Lex* toToken(char* line, int* count){
         else {
             while(!((isspace((unsigned char)line[i])) || (isalpha((unsigned char)line[i+1])) || (isdigit((unsigned char)line[i+1])))){
                 i++;
-                temp[i]= line[i];
+                len++;
+                temp[len]= line[i];
             }
         }
 
@@ -69,16 +72,16 @@ Lex* toToken(char* line, int* count){
         Lex newLex;
         strcpy(newLex.lexeme, temp);
         newLex.type = identify(temp);      // run to identify TokenType
-        slot[*count] = newLex;             // add to array
+        *slot[*count] = newLex;             // add to array
         (*count)++;                        // increment number of tokens found
         if((*count)%5 == 0){               // increase array size if needed
-            slot = realloc(slot, sizeof(Lex)*(*count)+5);
+            slot = realloc(*slot, sizeof(Lex)*((*count)+5));
         }
 
 
     }
 
-    return slot;
+    return *slot;
 
 }
 
@@ -96,11 +99,11 @@ int main(int argc, char *argv[]){
     char line[MAX_LINE_SIZE];
     int count = 0; //count number of tokens
 
-    Lex* kenized;
+    Lex* kenized = malloc(sizeof(Lex)*5); // to store new Lex structs
 
     //read each line and process into tokens
     while (fgets(line, sizeof(line), in) != NULL) {
-        kenized = toToken(line, &count);
+        toToken(&kenized, line, &count);
     }
 
     // print out to file
