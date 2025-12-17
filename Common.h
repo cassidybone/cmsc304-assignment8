@@ -23,7 +23,7 @@ typedef enum{
 typedef struct{
 
     TokenType type;
-    char lexeme[MAX_LINE_SIZE]
+    char lexeme[MAX_LINE_SIZE];
 
 }Lex;
 

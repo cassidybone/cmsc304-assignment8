@@ -1,7 +1,12 @@
 #include "Tokenizer.h"
 
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
 
-//void shorten(char *aString);
+
 
 
 // method to print token type
@@ -27,7 +32,6 @@ const char *toString(TokenType t) {
 // to identify and return token type from lexeme
 TokenType identify(char* lexeme){
     
-    //shorten(lexeme);
 
     // Check if reserved words
     if (strcmp(lexeme, "while") == 0)  return WHILE_KEYWORD;
@@ -68,7 +72,7 @@ Lex* toToken(Lex** slot, char* line, int* count){
 
     int i = 0; //index in line
     while (line[i] != '\0') { // check each character at a time until null terminator
-        char temp[MAX_LINE_SIZE + 1];
+        char temp[MAX_LINE_SIZE];
         int len = 0;
         temp[len++] = line[i];
         temp[len]= '\0';
@@ -92,7 +96,7 @@ Lex* toToken(Lex** slot, char* line, int* count){
         }
         else {
             i++;
-            if (strcmp(lexeme, "=") == 0){
+            if(strcmp(&line[i], "=") == 0){
 
                 temp[len++]= line[i];
                 temp[len]= '\0';
@@ -128,6 +132,9 @@ int main(int argc, char *argv[]){
     FILE* out = fopen(argv[2], "w");    //open output file to write
 
 
+    //FILE* in  = fopen("TokenTests/tokenTest1.txt", "r");     // input test file
+    //FILE* out = fopen("TokenOutputs/Test1.out", "w");   // output file
+
     char line[MAX_LINE_SIZE];
     int count = 0; //count number of tokens
 
@@ -135,7 +142,6 @@ int main(int argc, char *argv[]){
 
     //read each line and process into tokens
     while (fgets(line, sizeof(line), in) != NULL) {
-        shorten(line);
         toToken(&kenized, line, &count);
     }
 
@@ -156,4 +162,3 @@ int main(int argc, char *argv[]){
 
 
 }
-
