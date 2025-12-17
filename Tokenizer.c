@@ -1,7 +1,7 @@
 #include "Tokenizer.h"
 
 
-void shorten(char *aString);
+//void shorten(char *aString);
 
 
 // method to print token type
@@ -27,7 +27,7 @@ const char *toString(TokenType t) {
 // to identify and return token type from lexeme
 TokenType identify(char* lexeme){
     
-    shorten(lexeme);
+    //shorten(lexeme);
 
     // Check if reserved words
     if (strcmp(lexeme, "while") == 0)  return WHILE_KEYWORD;
@@ -68,7 +68,7 @@ Lex* toToken(Lex** slot, char* line, int* count){
 
     int i = 0; //index in line
     while (line[i] != '\0') { // check each character at a time until null terminator
-        char temp[MAX_LINE_SIZE];
+        char temp[MAX_LINE_SIZE + 1];
         int len = 0;
         temp[len++] = line[i];
         temp[len]= '\0';
@@ -92,7 +92,7 @@ Lex* toToken(Lex** slot, char* line, int* count){
         }
         else {
             i++;
-            while(!((isspace((unsigned char)line[i])) || (isalpha((unsigned char)line[i])) || (isdigit((unsigned char)line[i])))){
+            if (strcmp(lexeme, "=") == 0){
 
                 temp[len++]= line[i];
                 temp[len]= '\0';
