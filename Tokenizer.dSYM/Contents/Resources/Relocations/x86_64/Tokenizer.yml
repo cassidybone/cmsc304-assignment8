@@ -2,10 +2,10 @@
 triple:          'x86_64-apple-darwin'
 binary-path:     '/Users/cassidybohn/Desktop/CMSC304/cmsc304-assignment8/Tokenizer'
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _toString, symObjAddr: 0x0, symBinAddr: 0x100000480, symSize: 0x150 }
-  - { offsetInCU: 0xAE, offset: 0xAE, size: 0x8, addend: 0x0, symName: _toString, symObjAddr: 0x0, symBinAddr: 0x100000480, symSize: 0x150 }
-  - { offsetInCU: 0xD6, offset: 0xD6, size: 0x8, addend: 0x0, symName: _identify, symObjAddr: 0x150, symBinAddr: 0x1000005D0, symSize: 0x260 }
-  - { offsetInCU: 0xFE, offset: 0xFE, size: 0x8, addend: 0x0, symName: _shorten, symObjAddr: 0x3B0, symBinAddr: 0x100000830, symSize: 0x80 }
-  - { offsetInCU: 0x130, offset: 0x130, size: 0x8, addend: 0x0, symName: _toToken, symObjAddr: 0x430, symBinAddr: 0x1000008B0, symSize: 0x3E0 }
-  - { offsetInCU: 0x1C1, offset: 0x1C1, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x810, symBinAddr: 0x100000C90, symSize: 0x1B2 }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _toString, symObjAddr: 0x0, symBinAddr: 0x1000004B0, symSize: 0x150 }
+  - { offsetInCU: 0xAE, offset: 0xAE, size: 0x8, addend: 0x0, symName: _toString, symObjAddr: 0x0, symBinAddr: 0x1000004B0, symSize: 0x150 }
+  - { offsetInCU: 0xD6, offset: 0xD6, size: 0x8, addend: 0x0, symName: _identify, symObjAddr: 0x150, symBinAddr: 0x100000600, symSize: 0x260 }
+  - { offsetInCU: 0xFE, offset: 0xFE, size: 0x8, addend: 0x0, symName: _shorten, symObjAddr: 0x3B0, symBinAddr: 0x100000860, symSize: 0x80 }
+  - { offsetInCU: 0x130, offset: 0x130, size: 0x8, addend: 0x0, symName: _toToken, symObjAddr: 0x430, symBinAddr: 0x1000008E0, symSize: 0x3E0 }
+  - { offsetInCU: 0x1C1, offset: 0x1C1, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x810, symBinAddr: 0x100000CC0, symSize: 0x1BA }
 ...

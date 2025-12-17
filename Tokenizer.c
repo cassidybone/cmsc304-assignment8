@@ -1,11 +1,5 @@
 #include "Tokenizer.h"
 
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
-
 
 
 
@@ -132,8 +126,8 @@ int main(int argc, char *argv[]){
     FILE* out = fopen(argv[2], "w");    //open output file to write
 
 
-    //FILE* in  = fopen("TokenTests/tokenTest1.txt", "r");     // input test file
-    //FILE* out = fopen("TokenOutputs/Test1.out", "w");   // output file
+    //FILE* in  = fopen("TokenTests/tokenTest2.txt", "r");     // input test file
+    //FILE* out = fopen("TokenOutputs/Test2.out", "w");   // output file
 
     char line[MAX_LINE_SIZE];
     int count = 0; //count number of tokens

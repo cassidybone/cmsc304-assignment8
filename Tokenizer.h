@@ -1,6 +1,5 @@
-
-#ifndef RECOGNIZER_H
-#define RECOGNIZER_H
+#ifndef TOKENIZER_H
+#define TOKENIZER_H
 
 #include <stddef.h>
 #include <stdio.h>
@@ -10,20 +9,10 @@
 
 #include "Common.h"
 
-int isTerm(void);
-int isExpression(void);
-int isAssignment(void);
-int isReturn(void);
-int isWhileLoop(void);
-int isStatement(void);
-int isStatementList(void);
-int isBody(void);
-int isArgDecl(void);
-int isHeader(void);
-int isFunction(void);
-int branch();
-TokenType unString(char *s);
+const char *toString(TokenType t);
+TokenType identify(char* lexeme);
 void shorten(char *aString);
-int toLex(char *line);
+
+Lex* toToken(Lex** slot, char* line, int* count);
 
 #endif
